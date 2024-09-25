@@ -31,13 +31,13 @@ sudo pacman -S jq bc curl coreutils
 clone the repository:
 
 ```bash
-git clone https://github.com/getjared/spacecraft_tracker.git
+git clone https://github.com/getjared/fsst.git
 ```
 
 navigate to the directory:
 
 ```bash
-cd spacecraft_tracker
+cd bash/fsst
 ```
 
 make the script executable:
