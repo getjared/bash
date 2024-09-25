@@ -24,7 +24,7 @@ declare -A ship_systems=(
 )
 
 # Define maximum enemies per viewport
-MAX_ENEMIES_PER_VIEWPORT=5  # Adjust this value to control enemy density
+MAX_ENEMIES_PER_VIEWPORT=5  # Value to control enemy density
 
 # Define color variables
 RED=$(tput setaf 1)
@@ -209,7 +209,7 @@ function move_enterprise() {
     fi
 }
 
-# Handle planet encounter with more random events
+# Handle planet encounter with random events
 function encounter_planet() {
     echo ""
     echo "You have discovered a planet!"
@@ -305,7 +305,7 @@ function encounter_planet() {
     read -p "Press Enter to continue..."
 }
 
-# Enemy encounter with more fun dialogs and events
+# Enemy encounter with dialogs and events
 function encounter_enemy() {
     local enemy_type=$1
     echo ""
