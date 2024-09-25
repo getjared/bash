@@ -1,6 +1,8 @@
 #!/bin/bash
 
-# Star Trek: Galactic Explorer
+# Star Trek: Galactic Explorer (stge.sh)
+# by jared @ https://github.com/getjared
+
 # Initialize variables
 VIEWPORT_WIDTH=20
 VIEWPORT_HEIGHT=10
