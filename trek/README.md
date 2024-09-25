@@ -16,11 +16,11 @@
 
 1. Clone the repository:
    ```
-   git clone https://github.com/getjared/games.sh/trek.git
+   git clone https://github.com/getjared/games.sh.git
    ```
 2. Navigate to the game directory:
    ```
-   cd star-trek-galactic-explorer
+   cd games.sh/trek
    ```
 3. Make the script executable:
    ```
