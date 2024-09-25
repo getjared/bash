@@ -36,7 +36,7 @@ This script requires `bc` (basic calculator) to be installed on your system. Mos
    ```
 2. Navigate to the project directory:
    ```
-   cd bash/warp-drive-calculator
+   cd bash/warpdrive_calculator
    ```
 3. Make the script executable:
    ```
