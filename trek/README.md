@@ -45,8 +45,7 @@
 
 ## Dependencies
 
-- Bash (version 4.0 or higher)
-- A terminal that supports ANSI color codes
+- bash & a terminal :)
 
 ## 🖖 Live Long and Prosper!
 
