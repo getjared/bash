@@ -122,23 +122,17 @@ the travel time is calculated as:
 
 convert the travel time to years, days, or hours as appropriate:
 
-- **years:**
+Years:
+travel time (years)=travel time (s)31,557,600
+travel time (years)=31,557,600travel time (s)​
 
-\[
-\text{travel time (years)} = \frac{\text{travel time (s)}}{31,557,600}
-\]
+Days:
+travel time (days)=travel time (s)86,400
+travel time (days)=86,400travel time (s)​
 
-- **days:**
-
-\[
-\text{travel time (days)} = \frac{\text{travel time (s)}}{86,400}
-\]
-
-- **hours:**
-
-\[
-\text{travel time (hours)} = \frac{\text{travel time (s)}}{3,600}
-\]
+Hours:
+travel time (hours)=travel time (s)3,600
+travel time (hours)=3,600travel time (s)​
 
 ## example
 
