@@ -31,7 +31,7 @@ sudo pacman -S jq bc curl coreutils
 clone the repository:
 
 ```bash
-git clone https://github.com/getjared/fsst.git
+git clone https://github.com/getjared/bash.git
 ```
 
 navigate to the directory:
