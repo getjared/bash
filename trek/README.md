@@ -43,7 +43,7 @@
 - `Q`: Quit Game
 
 
-## Dependencies
+## dependencies
 
 - bash & a terminal :)
 
