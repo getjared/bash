@@ -25,6 +25,7 @@ a gollum-themed bash script for system-wide file searching with colorful output.
 ## usage
 
 run the script with sudo:
+if no filename is provided, you will be prompted to enter one.
 
 ```
 sudo ./gff.sh [filename]
@@ -34,8 +35,6 @@ works best if you throw an alias into your bashrc file
 ```
 alias g='sudo /.gff.sh [filename]'
 ```
-
-if no filename is provided, you will be prompted to enter one.
 
 ## examples
 
