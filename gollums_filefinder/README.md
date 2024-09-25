@@ -33,7 +33,7 @@ sudo ./gff.sh [filename]
 
 works best if you throw an alias into your bashrc file
 ```
-alias g='sudo /.gff.sh [filename]'
+alias g='sudo <path/to/file/>gff.sh [filename]'
 ```
 
 ## examples
