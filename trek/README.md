@@ -1,4 +1,4 @@
-# 🖖 Star Trek: Galactic Explorer
+# 🖖 star trek: galactic explorer
 
 
 **stge** text-based space exploration game built entirely in Bash. Command the USS Enterprise, navigate through uncharted space, and face the challenges of the final frontier! (because why not?)
