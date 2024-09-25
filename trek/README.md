@@ -20,7 +20,7 @@
    ```
 2. Navigate to the game directory:
    ```
-   cd games.sh/trek
+   cd bash/trek
    ```
 3. Make the script executable:
    ```
