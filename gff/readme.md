@@ -52,4 +52,4 @@ sudo ./gff.sh MyFiLe.TxT
 
 this script requires sudo privileges to search the entire file system. always be cautious when running scripts with elevated permissions.
 
-easter egg if you have ring, precious, hobbit or fish.txt somewhere on your system :3
+easter egg if you have any files named ring, precious, hobbit or fish somewhere on your system :3
