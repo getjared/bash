@@ -64,7 +64,8 @@ connect to a specific server and channel:
 make sure you add the "" around the channel name.
 
 ```
-./sauron.sh -s irc.example.com -c "#mychannel"
+./sauron.sh -s irc.example.com -c yourname "#mychannel"
+bash sauron.sh -s irc.libera.chat -p 6667 -n getjared -c "#bash"
 ```
 
 ## note
