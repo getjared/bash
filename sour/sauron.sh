@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# sauron: A super minimal IRC client written in Bash without external dependencies
+# souron (souron.sh)
+# by jared @ https://github.com/getjared
 
 # Configuration
 SERVER="irc.libera.chat"    # Default IRC server
