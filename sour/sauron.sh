@@ -17,6 +17,7 @@ YELLOW='\033[0;33m'
 BLUE='\033[0;34m'
 MAGENTA='\033[0;35m'
 CYAN='\033[0;36m'
+BOLD='\033[1m'
 RESET='\033[0m'
 
 # Terminal control sequences
@@ -81,22 +82,22 @@ receive_messages() {
                 sender="${sender#:}"
                 message="${line#*PRIVMSG ${CHANNEL} :}"
                 if [[ "$sender" != "$NICK" ]]; then
-                    echo -e "${CYAN}${sender}${RESET}: ${message}"
+                    echo -e "${BOLD}${CYAN}${sender}${RESET}${BOLD}:${RESET} ${message}"
                 fi
             elif [[ "$line" == :*\ NOTICE\ * ]]; then
-                echo -e "${MAGENTA}${line}${RESET}"
+                echo -e "${MAGENTA}━━ ${line} ━━${RESET}"
             elif [[ "$line" == :*\ JOIN\ * ]]; then
                 joiner="${line%%!*}"
                 joiner="${joiner#:}"
-                echo -e "${GREEN}${joiner} has joined the channel${RESET}"
+                echo -e "${GREEN}▶ ${joiner} has joined the channel${RESET}"
             elif [[ "$line" == :*\ PART\ * ]]; then
                 parter="${line%%!*}"
                 parter="${parter#:}"
-                echo -e "${YELLOW}${parter} has left the channel${RESET}"
+                echo -e "${YELLOW}◀ ${parter} has left the channel${RESET}"
             elif [[ "$line" == :*\ QUIT\ * ]]; then
                 quitter="${line%%!*}"
                 quitter="${quitter#:}"
-                echo -e "${RED}${quitter} has quit${RESET}"
+                echo -e "${RED}✕ ${quitter} has quit${RESET}"
             elif [[ "$line" == :*\ MODE\ * ]]; then
                 # Ignore mode messages
                 :
@@ -113,7 +114,7 @@ receive_messages() {
         # After registration, join the channel
         if [[ "$line" == *" 001 "* ]]; then
             send_cmd "JOIN $CHANNEL"
-            echo -e "${GREEN}Joined $CHANNEL${RESET}"
+            echo -e "${GREEN}━━━ Joined $CHANNEL ━━━${RESET}"
         fi
     done
 }
@@ -132,17 +133,17 @@ while IFS= read -r user_input; do
             channel=$(echo "$user_input" | awk '{print $2}')
             send_cmd "JOIN $channel"
             CHANNEL="$channel"
-            echo -e "${GREEN}Joining $CHANNEL${RESET}"
+            echo -e "${GREEN}━━━ Joining $CHANNEL ━━━${RESET}"
             ;;
         /msg*)
             target=$(echo "$user_input" | awk '{print $2}')
             message=$(echo "$user_input" | cut -d' ' -f3-)
             send_cmd "PRIVMSG $target :$message"
-            echo -e "${YELLOW}Private message to ${target}${RESET}: ${message}"
+            echo -e "${YELLOW}[PM to ${target}]${RESET} ${message}"
             ;;
         *)
             send_cmd "PRIVMSG $CHANNEL :$user_input"
-            echo -e "${CYAN}${NICK}${RESET}: ${user_input}"
+            echo -e "${BOLD}${CYAN}${NICK}${RESET}${BOLD}:${RESET} ${user_input}"
             ;;
     esac
 done
