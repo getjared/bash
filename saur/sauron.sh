@@ -75,6 +75,12 @@ trap cleanup INT TERM
 # Function to handle incoming messages
 receive_messages() {
     while IFS= read -r line <&3; do
+        # Respond to PING to keep the connection alive (without displaying it)
+        if [[ "$line" == PING* ]]; then
+            send_cmd "PONG ${line#PING }"
+            continue  # Skip to the next iteration of the loop
+        fi
+
         # Filter out the user list, end of names list, and MOTD
         if [[ "$line" != *" 353 "* && "$line" != *" 366 "* && "$line" != *" 372 "* && "$line" != *" 375 "* && "$line" != *" 376 "* ]]; then
             # Parse and format the message
@@ -105,11 +111,6 @@ receive_messages() {
             else
                 echo -e "${BLUE}${line}${RESET}"
             fi
-        fi
-
-        # Respond to PING to keep the connection alive
-        if [[ "$line" == PING* ]]; then
-            send_cmd "PONG ${line#PING }"
         fi
 
         # After registration, join the channel
