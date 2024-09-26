@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# souron (souron.sh)
+# sauron irc client (sauron.sh)
 # by jared @ https://github.com/getjared
 
 # Configuration
