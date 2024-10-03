@@ -7,4 +7,5 @@ saur - sauron bash irc
 wdc  - warp drive calculator
 fsst - spacecraft tracker
 gff  - gollums file finder
+kli  - english-to-kilngton translator
 ```
