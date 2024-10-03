@@ -4,7 +4,7 @@
 
 translates english text into klingon and then converts it to klingon pIqaD glyphs. it's a fun tool for star trek fans.
 
-<a href="https://i.imgur.com/yS4CAKY.png"><img src="https://i.imgur.com/yS4CAKY.png" width="60%" align="center"></a>
+<a href="https://i.imgur.com/v0A33wV.png"><img src="https://i.imgur.com/v0A33wV.png" width="60%" align="center"></a>
 
 ## features
 
