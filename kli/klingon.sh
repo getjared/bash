@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# ansi color codes
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+MAGENTA='\033[0;35m'
+CYAN='\033[0;36m'
+NC='\033[0m' # no color
+
 # mapping from latin letters to klingon pIqaD code points
 declare -A klingon_map=(
     ["a"]=$'\uF8D0'
@@ -233,11 +242,12 @@ convert_to_piqaD() {
 # main Loop
 while true; do
     # Read user input
-    read -p "Enter text (or type 'exit' to quit): " input_text
+    echo -e "${YELLOW}Enter text (or type 'exit' to quit):${NC} "
+    read -p "" input_text
 
     # exit if user types 'exit' or an empty line
     if [ -z "$input_text" ] || [ "$input_text" == "exit" ]; then
-        echo "Qapla'! (Success!)"
+        echo -e "${GREEN}Qapla'! (Success!)${NC}"
         break
     fi
 
@@ -254,6 +264,9 @@ while true; do
     piqad_text=$(convert_to_piqaD "$translated_sentence")
 
     # output the converted text
-    echo -e "$piqad_text"
+    #echo -e "${BLUE}English:${NC} $input_text"
+    #echo -e "${MAGENTA}Klingon:${NC} $translated_sentence"
+    echo -e "${CYAN}pIqaD:${NC}"
+    echo -e "    $piqad_text"
+    echo "" # add an empty line for better readability
 done
-
