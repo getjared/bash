@@ -16,6 +16,7 @@ translates english text into klingon and then converts it to klingon pIqaD glyph
 1. **font installation**: 
    - to properly display klingon pIqaD glyphs, you need a font that supports these characters.
    - download and install a pIqaD font such as "quiske" or "klingon piqaD HaSta" from [klingon language institute](https://www.kli.org/learn-klingon/klingon-fonts/).
+   - https://github.com/dadap/pIqaD-fonts (the one i use)
    - install the font on your system:
      - for linux: copy the font file to `~/.local/share/fonts/` and run `fc-cache -f -v`
      - for macos: double-click the font file and click "install font"
@@ -64,5 +65,6 @@ feel free to contribute by adding more words to the dictionary or improving the 
 - this script uses unicode characters for klingon pIqaD glyphs.
 - inspired by the klingon language created for star trek.
 - https://hol.kag.org/
+- https://github.com/dadap (the klingon glyphs)
 
 qapla'! (success!)
