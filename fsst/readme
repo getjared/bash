@@ -27,17 +27,12 @@ sudo pacman -S jq bc curl coreutils
 
 git clone https://github.com/getjared/bash.git
 cd bash/fsst
-
-make the script executable
-
-bash
 chmod +x fsst.sh
 
 
 § usage
 
 run the script
-bash
 ./fsst.sh
 
 
