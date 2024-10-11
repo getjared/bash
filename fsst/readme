@@ -10,6 +10,7 @@ features
 • james webb:   displays fixed position at l2 point
 • curiosity:    retrieves mission status, landing date, current martian sol, and total photos taken using nasa api
 
+
 § prerequisites
 
 • jq
