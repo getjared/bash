@@ -47,6 +47,7 @@ best way to actually use it is to add an alias to your .bashrc
 • `-r`: real name (default: Bash IRC Client)
 • `-c`: channel to join (default: #bash)
 
+
 § in-client commands
 
 • `/quit`: exit the client
