@@ -14,16 +14,19 @@ features
 • no external dependencies - runs with just bash
 • customizable server, port, nickname, username, and channel
 
+
 § requirements
 
 • bash shell (version 4.0 or higher recommended)
 • a working internet connection
+
 
 § installation
 
 git clone https://github.com/getjared/bash.git
 cd bash/sauron
 chmod +x sauron.sh
+
 
 § usage
 
