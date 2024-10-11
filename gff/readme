@@ -4,16 +4,18 @@
 
 a gollum-themed bash script for system-wide file searching with colorful output. (it's pretty pointless but i use it ;p)
 
-§ features
+features
 • case-insensitive file search across the entire system
 • gollum-inspired dialogue during the search process
 • colorful terminal output for enhanced readability
 • simple and user-friendly interface
 
+
 § prerequisites
 
 • bash shell
 • sudo privileges (for system-wide search)
+
 
 § installation
 
