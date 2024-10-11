@@ -4,11 +4,11 @@
 track the status and position of various spacecraft, including the iss, voyager 1 and 2, new horizons, curiosity rover, and james webb space telescope.
 
 features
-• iss status:    real-time latitude and longitude, altitude, velocity, and last update time
-• voyager 1 & 2: calculates distance from earth in au and km based on launch date and average speed
-• new horizons:  shows distance from earth in au and km
-• james webb space telescope: displays fixed position at l2 point
-• curiosity rover: retrieves mission status, landing date, current martian sol, and total photos taken using nasa api
+• iss:          real-time latitude and longitude, altitude, velocity, and last update time
+• voyager's:    calculates distance from earth in au and km based on launch date and average speed
+• new horizons: shows distance from earth in au and km
+• james webb:   displays fixed position at l2 point
+• curiosity:    retrieves mission status, landing date, current martian sol, and total photos taken using nasa api
 
 § prerequisites
 
