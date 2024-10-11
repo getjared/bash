@@ -17,9 +17,6 @@ features
 • curl
 • date
 
-on arch linux . .
-
-bash
 sudo pacman -S jq bc curl coreutils
 
 
