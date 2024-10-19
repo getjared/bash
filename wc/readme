@@ -21,5 +21,9 @@ chmod +x wc.sh
 
 § usage
 
-./wc --b
+• ./wc
+• -b (set random wallpaper)
+• -c (remove all walls from cache)
+• -s (save to specific place)
+
 it will save and store the images it gets into ./cache/wc/images
