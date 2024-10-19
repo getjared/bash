@@ -1,1 +1,24 @@
 
+                              wc.sh
+
+grab a random wallpaper from wallhaven & set it..
+
+
+§ prerequisites
+
+• jq
+• curl
+
+sudo pacman -S jq curl
+
+
+§ installation
+
+git clone https://github.com/getjared/bash.git
+cd bash/wc
+chmod +x wc.sh
+
+§ usage
+
+./wc --b
+it will save and store the images it gets into ./cache/wc/images
