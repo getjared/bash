@@ -8,6 +8,7 @@ grab a random wallpaper from wallhaven & set it..
 
 • jq
 • curl
+• feh
 
 sudo pacman -S jq curl
 
