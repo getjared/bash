@@ -25,7 +25,7 @@ chmod +x wc.sh
 • -b (set random wallpaper)
 • -nsfw (allow nsfw)
 • -c (remove all walls from cache)
-• -s (save to specific place) (./wc -s /home/jared/walls)
+• -s (save current to specific place) (./wc -s /home/jared/walls)
 
 it will save and store the images it gets into ./cache/wc/images
 
