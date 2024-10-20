@@ -1,18 +1,13 @@
 #!/bin/bash
 
-# gollum's file finder (gff.sh)
-# by jared @ https://github.com/getjared
-
-# colors
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 PURPLE='\033[0;35m'
 CYAN='\033[0;36m'
-NC='\033[0m' # no color
+NC='\033[0m'
 
-# array of gollum-like phrases
 phrases=(
     "where is it? where is my precious?"
     "is it here? no, not here, sneaky little fileses."
@@ -36,13 +31,11 @@ phrases=(
     "deeper we goes, darker it gets, still searching."
 )
 
-# function to output a gollum-like phrase
 function gollum_speak() {
     local phrase_index=$(( RANDOM % ${#phrases[@]} ))
     echo -e "${YELLOW}${phrases[$phrase_index]}${NC} ${CYAN}(searching in $1)${NC}"
 }
 
-# function to comment on file type
 function gollum_file_type_comment() {
     local file="$1"
     local file_extension="${file##*.}"
@@ -122,7 +115,6 @@ function gollum_file_type_comment() {
     esac
 }
 
-# function to comment on file size
 function gollum_file_size_comment() {
     local file="$1"
     local size=$(du -sh "$file" | cut -f1)
@@ -149,7 +141,6 @@ function gollum_file_size_comment() {
     esac
 }
 
-# function to handle easter eggs
 function easter_egg() {
     local filename="$1"
     case "$filename" in
@@ -172,23 +163,19 @@ function easter_egg() {
     return 0
 }
 
-# function to search for the file
 function search_file() {
     local start_dir="$1"
     local search_file="$2"
     
     gollum_speak "$start_dir"
     
-    # use find command to search for the file (case-insensitive)
     results=$(sudo find "$start_dir" -iname "$search_file" 2>/dev/null)
     
     if [ -n "$results" ]; then
-        # check for easter eggs
         if easter_egg "$search_file"; then
             echo
         fi
 
-        # count the number of results
         count=$(echo "$results" | wc -l)
         
         if [ $count -eq 1 ]; then
@@ -203,7 +190,6 @@ function search_file() {
             echo -e "${YELLOW}oh! we found many preciouses! which one does we want?${NC}"
             echo
             
-            # display results with numbers
             i=1
             while IFS= read -r result; do
                 echo -e "${CYAN}$i)${NC} $result"
@@ -214,7 +200,6 @@ function search_file() {
             echo -e "${YELLOW}which precious does we want? tell us the number, quick!${NC}"
             read -p "> " choice
             
-            # validate choice
             if [[ "$choice" =~ ^[0-9]+$ ]] && [ "$choice" -ge 1 ] && [ "$choice" -le $count ]; then
                 chosen_file=$(sed "${choice}q;d" <<< "$results")
                 echo
@@ -234,13 +219,11 @@ function search_file() {
     return 1
 }
 
-# check if running with sudo
 if [ "$EUID" -ne 0 ]; then
     echo -e "${RED}please run as root or with sudo, precious!${NC}"
     exit 1
 fi
 
-# get the filename to search for
 if [ -z "$1" ]; then
     echo -e "${YELLOW}what's the name of your precious file? sneaky hobbitses!)${NC}"
     read -p "> " search_file
@@ -253,7 +236,6 @@ echo -e "${GREEN}gollum begins the hunt for the precious file '$search_file'...$
 echo -e "${CYAN}(we'll find it no matter, yes we will!)${NC}"
 echo
 
-# start the search from root directory
 if search_file "/" "$search_file"; then
     exit 0
 else
