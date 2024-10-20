@@ -1,16 +1,11 @@
 #!/bin/bash
 
-# spacecraft tracker (fsst.sh)
-# by jared @ https://github.com/getjared
-
-# Define color codes
 GREEN='\033[0;32m'
 CYAN='\033[0;36m'
 YELLOW='\033[1;33m'
 RED='\033[0;31m'
-NC='\033[0m' # No Color
+NC='\033[0m'
 
-# Ensure required utilities are installed
 for cmd in jq bc curl date; do
     if ! command -v "$cmd" &> /dev/null; then
         echo -e "${RED}Error: The '$cmd' utility is required but not installed.${NC}"
@@ -20,7 +15,6 @@ for cmd in jq bc curl date; do
     fi
 done
 
-# Function to get ISS position and details
 get_iss_status() {
     ISS_API="http://api.open-notify.org/iss-now.json"
     ISS_DATA=$(curl -s "$ISS_API")
@@ -34,8 +28,8 @@ get_iss_status() {
     LON=$(echo "$ISS_DATA" | jq -r '.iss_position.longitude')
     TIMESTAMP=$(echo "$ISS_DATA" | jq -r '.timestamp')
     DATETIME=$(date -d @"$TIMESTAMP" +"%Y-%m-%d %H:%M:%S")
-    ALTITUDE=420  # Average altitude in km
-    VELOCITY=7.66 # Average velocity in km/s
+    ALTITUDE=420
+    VELOCITY=7.66
 
     if [ -z "$LAT" ] || [ -z "$LON" ]; then
         echo -e "${RED}ISS: Incomplete position data received.${NC}"
@@ -50,30 +44,22 @@ get_iss_status() {
     echo ""
 }
 
-# Function to calculate spacecraft distance based on launch date and speed
 calculate_distance() {
     local launch_date=$1
     local speed_km_s=$2
 
-    # Current date in seconds since epoch
     CURRENT_DATE_SEC=$(date +%s)
-    # Launch date in seconds since epoch
     LAUNCH_DATE_SEC=$(date -d "$launch_date" +%s)
-    # Calculate elapsed time in seconds
     ELAPSED_SEC=$((CURRENT_DATE_SEC - LAUNCH_DATE_SEC))
-    # Calculate distance in km
     DISTANCE_KM=$(echo "scale=2; $ELAPSED_SEC * $speed_km_s" | bc)
-    # Convert km to AU (1 AU = 149,597,870.7 km)
     DISTANCE_AU=$(echo "scale=6; $DISTANCE_KM / 149597870.7" | bc)
 
-    # Format distance with commas
     DISTANCE_KM_FMT=$(printf "%'0.2f" "$DISTANCE_KM")
     DISTANCE_AU_FMT=$(printf "%'.6f" "$DISTANCE_AU")
 
     echo "$DISTANCE_AU_FMT AU ($DISTANCE_KM_FMT km)"
 }
 
-# Function to get Voyager 1 status
 get_voyager1_status() {
     LAUNCH_DATE="1977-09-05"
     SPEED_KM_S=17.0
@@ -88,7 +74,6 @@ get_voyager1_status() {
     echo ""
 }
 
-# Function to get Voyager 2 status
 get_voyager2_status() {
     LAUNCH_DATE="1977-08-20"
     SPEED_KM_S=15.4
@@ -103,7 +88,6 @@ get_voyager2_status() {
     echo ""
 }
 
-# Function to get New Horizons status
 get_new_horizons_status() {
     LAUNCH_DATE="2006-01-19"
     SPEED_KM_S=16.26
@@ -118,9 +102,8 @@ get_new_horizons_status() {
     echo ""
 }
 
-# Function to get Mars Rover Curiosity status
 get_curiosity_status() {
-    API_KEY="DEMO"  # Replace with your NASA API key
+    API_KEY="DEMO"
     ROVER_API="https://api.nasa.gov/mars-photos/api/v1/manifests/Curiosity?api_key=$API_KEY"
     ROVER_DATA=$(curl -s "$ROVER_API")
 
@@ -147,13 +130,10 @@ get_curiosity_status() {
     echo ""
 }
 
-# Function to get James Webb Space Telescope status
 get_jwst_status() {
-    # JWST is located at L2 point, approximately 1.5 million km from Earth
     LAUNCH_DATE="2021-12-25"
-    SPEED_KM_S=0.0  # JWST maintains position via thrusters
+    SPEED_KM_S=0.0
 
-    # Since JWST maintains its position, distance is relatively constant
     DISTANCE_KM=1500000
     DISTANCE_AU=$(echo "scale=6; $DISTANCE_KM / 149597870.7" | bc)
     DISTANCE_AU_FMT=$(printf "%'.6f" "$DISTANCE_AU")
@@ -165,7 +145,6 @@ get_jwst_status() {
     echo ""
 }
 
-# Main function to display all statuses
 main() {
     echo -e "${CYAN}🖖 Spacecraft Tracker 🖖${NC}"
     echo "---------------------------------"
@@ -178,5 +157,4 @@ main() {
     echo "---------------------------------"
 }
 
-# Execute the main function
 main
