@@ -1,12 +1,7 @@
 #!/bin/bash
 
-# Warp Drive Calculator (wdc.sh)
-# by jared @ https://github.com/getjared
-
-# Ensure bc is installed
 command -v bc >/dev/null 2>&1 || { echo -e >&2 "\033[0;31mThe script requires 'bc' but it's not installed. Please install it and try again.\033[0m"; exit 1; }
 
-# Color codes for formatting
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
@@ -16,34 +11,27 @@ MAGENTA='\033[0;35m'
 BOLD='\033[1m'
 RESET='\033[0m'
 
-# Constants
-C=299792.458  # Speed of light in km/s
+C=299792.458
 
-# Warp speed formulas based on Star Trek: The Next Generation Technical Manual
 warp_speed() {
     local wf=$1
     if (( $(echo "$wf <= 9" | bc -l) )); then
         echo "$(echo "e((10/3)*l($wf))*$C" | bc -l)"
     else
-        # Speeds above Warp 9 increase exponentially
         echo "$(echo "e($wf)*$C" | bc -l)"
     fi
 }
 
-# Convert sexagesimal RA to decimal degrees
 convert_ra() {
     local ra=$1
-    # RA format: HHhMMmSS.Ss
     hours=$(echo "$ra" | sed -E 's/([0-9]+)h.*/\1/')
     minutes=$(echo "$ra" | sed -E 's/.*h([0-9]+)m.*/\1/')
     seconds=$(echo "$ra" | sed -E 's/.*m([0-9.]+)s.*/\1/')
     echo "$(echo "($hours + $minutes/60 + $seconds/3600) * 15" | bc -l)"
 }
 
-# Convert sexagesimal Dec to decimal degrees
 convert_dec() {
     local dec=$1
-    # Dec format: ±DD°MM′SS.S″
     sign=$(echo "$dec" | grep -o '^[+-]')
     degrees=$(echo "$dec" | sed -E 's/^[+-]?([0-9]+)°.*$/\1/')
     minutes=$(echo "$dec" | sed -E 's/.*°([0-9]+)′.*$/\1/')
@@ -56,7 +44,6 @@ convert_dec() {
     fi
 }
 
-# Star data: Name|Distance from Earth in light-years|Right Ascension|Declination|Spectral Type|Mass|Radius|Astronomical Facts|Star Trek Lore
 read -r -d '' STARS << EOM
 Earth|0|0h0m0s|0°0′0″|G2V|1.0|1.0|Our home planet, the third planet from the Sun.|Birthplace of humanity and headquarters of the United Federation of Planets.
 Alpha Centauri|4.367|14h39m36.4951s|-60°50′02.308″|G2V|1.1|1.2|Closest star system to the Solar System.|Known as the location of the planet Terra Nova.
@@ -77,7 +64,6 @@ EOM
 
 IFS=$'\n' read -rd '' -a STARS_ARRAY <<< "$STARS"
 
-# Ship data: Name|Class|Maximum Warp Factor|Notes
 read -r -d '' SHIPS << EOM
 USS Enterprise-D|Galaxy|9.6|Flagship of the Federation in the 24th century.
 USS Voyager|Intrepid|9.975|Lost in the Delta Quadrant, took 70 years to return at maximum warp.
@@ -88,7 +74,6 @@ EOM
 
 IFS=$'\n' read -rd '' -a SHIPS_ARRAY <<< "$SHIPS"
 
-# Function to display star list
 display_stars() {
     echo -e "${BOLD}${CYAN}Available Stars and Planets:${RESET}"
     local index=1
@@ -99,7 +84,6 @@ display_stars() {
     done
 }
 
-# Function to display ship list
 display_ships() {
     echo -e "${BOLD}${CYAN}Available Starships:${RESET}"
     local index=1
@@ -110,19 +94,16 @@ display_ships() {
     done
 }
 
-# Function to get star data
 get_star_data() {
     local index=$1
     echo "${STARS_ARRAY[$((index - 1))]}"
 }
 
-# Function to get ship data
 get_ship_data() {
     local index=$1
     echo "${SHIPS_ARRAY[$((index - 1))]}"
 }
 
-# Main script
 echo -e "${BOLD}${MAGENTA}Welcome to the Warp Drive Calculator!${RESET}"
 echo -e "${CYAN}This tool calculates hypothetical warp travel times between star systems using real astronomical data.${RESET}"
 echo ""
@@ -130,7 +111,6 @@ echo -e "${BOLD}${MAGENTA}Mission Briefing:${RESET}"
 echo -e "${CYAN}You are tasked with navigating a starship between two points in the galaxy. Choose your vessel and set your course!${RESET}"
 echo ""
 
-# Select starship
 display_ships
 echo ""
 read -p "$(echo -e "${BOLD}Select your starship by number:${RESET} ")" ship_index
@@ -140,7 +120,6 @@ ship_class=$(echo "$ship" | cut -d'|' -f2)
 ship_max_warp=$(echo "$ship" | cut -d'|' -f3)
 ship_notes=$(echo "$ship" | cut -d'|' -f4)
 
-# Select origin star
 echo ""
 display_stars
 echo ""
@@ -156,7 +135,6 @@ origin_radius=$(echo "$origin_star" | cut -d'|' -f7)
 origin_fact=$(echo "$origin_star" | cut -d'|' -f8)
 origin_lore=$(echo "$origin_star" | cut -d'|' -f9)
 
-# Select destination star
 echo ""
 display_stars
 echo ""
@@ -172,20 +150,17 @@ dest_radius=$(echo "$dest_star" | cut -d'|' -f7)
 dest_fact=$(echo "$dest_star" | cut -d'|' -f8)
 dest_lore=$(echo "$dest_star" | cut -d'|' -f9)
 
-# Convert RA and Dec to decimal degrees
 origin_ra=$(convert_ra "$origin_ra_sex")
 origin_dec=$(convert_dec "$origin_dec_sex")
 dest_ra=$(convert_ra "$dest_ra_sex")
 dest_dec=$(convert_dec "$dest_dec_sex")
 
-# Convert degrees to radians for trigonometric functions
 deg2rad=$(echo "scale=10; 4*a(1)/180" | bc -l)
 origin_ra_rad=$(echo "$origin_ra * $deg2rad" | bc -l)
 origin_dec_rad=$(echo "$origin_dec * $deg2rad" | bc -l)
 dest_ra_rad=$(echo "$dest_ra * $deg2rad" | bc -l)
 dest_dec_rad=$(echo "$dest_dec * $deg2rad" | bc -l)
 
-# Calculate angular separation using spherical law of cosines
 cos_angle=$(echo "
 scale=10;
 odr = $origin_dec_rad;
@@ -196,13 +171,10 @@ cos_angle = s(odr)*s(ddr) + c(odr)*c(ddr)*c(orr - drr);
 cos_angle
 " | bc -l)
 
-# Ensure cos_angle is within valid range [-1,1]
 cos_angle=$(echo "$cos_angle" | awk '{if ($1 > 1) print 1; else if ($1 < -1) print -1; else print $1}')
 
-# Define pi in bc
 pi=$(echo "scale=10; 4*a(1)" | bc -l)
 
-# Define arccos function in bc
 angle_rad=$(echo "
 scale=10;
 define arccos(x) {
@@ -215,7 +187,6 @@ define arccos(x) {
 arccos($cos_angle)
 " | bc -l)
 
-# Calculate distance between stars using the law of cosines
 distance=$(echo "
 scale=10;
 d1 = $origin_distance;
@@ -225,33 +196,26 @@ distance = sqrt(d1^2 + d2^2 - 2*d1*d2*c(angle));
 distance
 " | bc -l)
 
-# Convert distance to kilometers
 LY_TO_KM=9460730472580.8
 distance_km=$(echo "$distance * $LY_TO_KM" | bc -l)
 
-# Get warp factor
 echo ""
 echo -e "${BOLD}Maximum Warp Factor for $ship_name (${ship_class} class): ${ship_max_warp}${RESET}"
 read -p "$(echo -e "${BOLD}Enter warp factor (up to maximum warp):${RESET} ")" warp_factor
 
-# Validate warp factor
 if ! [[ "$warp_factor" =~ ^[0-9]*\.?[0-9]+$ ]] || (( $(echo "$warp_factor > $ship_max_warp" | bc -l) )); then
     echo -e "${RED}Invalid warp factor. Please enter a numeric value up to the ship's maximum warp factor.${RESET}"
     exit 1
 fi
 
-# Calculate warp speed
 speed_km_s=$(warp_speed "$warp_factor")
 
-# Calculate travel time in seconds
 travel_time_s=$(echo "$distance_km / $speed_km_s" | bc -l)
 
-# Convert travel time to human-readable format
 travel_time_yr=$(echo "$travel_time_s / (31557600)" | bc -l)
 travel_time_day=$(echo "$travel_time_s / 86400" | bc -l)
 travel_time_hr=$(echo "$travel_time_s / 3600" | bc -l)
 
-# Output
 echo ""
 echo -e "${BOLD}${MAGENTA}Mission Summary:${RESET}"
 echo -e "${BOLD}${GREEN}Starship:${RESET} $ship_name (${ship_class} class)"
