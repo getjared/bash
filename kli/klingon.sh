@@ -1,15 +1,13 @@
 #!/bin/bash
 
-# ansi color codes
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
 BLUE='\033[0;34m'
 MAGENTA='\033[0;35m'
 CYAN='\033[0;36m'
-NC='\033[0m' # no color
+NC='\033[0m'
 
-# mapping from latin letters to klingon pIqaD code points
 declare -A klingon_map=(
     ["a"]=$'\uF8D0'
     ["b"]=$'\uF8D1'
@@ -42,15 +40,11 @@ declare -A klingon_map=(
     ["'"]=$'\uF8E9'
 )
 
-# english to klingon word dictionary
 declare -A klingon_dictionary=(
-    # greetings
     ["hello"]="nuqneH"
     ["goodbye"]="Qapla'"
     ["hi"]="nuqneH"
     ["greetings"]="nuqneH"
-
-    # pronouns
     ["i"]="jIH"
     ["you"]="SoH"
     ["we"]="maH"
@@ -58,16 +52,12 @@ declare -A klingon_dictionary=(
     ["he"]="ghaH"
     ["she"]="ghaH"
     ["it"]="ghaH"
-
-    # common phrases
     ["yes"]="HIja'"
     ["no"]="ghobe'"
     ["please"]="qa'plu'"
     ["thank"]="qatlho'"
     ["thanks"]="qatlho'"
     ["sorry"]="jIQoch"
-
-    # nouns
     ["friend"]="jup"
     ["enemy"]="jagh"
     ["battle"]="veS"
@@ -84,37 +74,28 @@ declare -A klingon_dictionary=(
     ["weaponry"]="puqpu'"
     ["sword"]="QIch"
     ["blood"]="beq"
-
-    # verbs
     ["attack"]="batlh"
     ["fight"]="batlh"
     ["love"]="bang"
     ["hate"]="QInvam"
     ["run"]="vItlhutlh"
     ["speak"]="tlhIngan Hol"
-
-    # adjectives
     ["strong"]="vItlhutlh"
     ["brave"]="batlh"
     ["quick"]="pagh"
     ["swift"]="pagh"
-
-    # others
     ["money"]="tlhegh"
     ["food"]="choq"
     ["leader"]="Qun"
     ["king"]="raS"
     ["queen"]="raS Qun"
-    # add more words as desired
 )
 
-# function to translate english to klingon word-by-word
 translate_to_klingon() {
     local sentence=("$@")
     local klingon_sentence=()
     local word translated_word
 
-    # simple pluralization: append 'pu'' for people or 'mey' for objects
     pluralize() {
         case "$1" in
             jup|jagh|veS|batlh|tlhIngan|wo\'|Duj|DujDaq|Hov|Hegh|ngaD|puq|puqpu\'|QIch|beq|bang|QInvam|vItlhutlh|tlhIngan\ Hol|choq|Qun|raS|raS\ Qun)
@@ -126,9 +107,7 @@ translate_to_klingon() {
         esac
     }
 
-    # iterate over each word
     for word in "${sentence[@]}"; do
-        # handle plural words
         if [[ "$word" == *"s" ]]; then
             base_word="${word%s}"
             if [ "${klingon_dictionary[$base_word]+_}" ]; then
@@ -138,7 +117,6 @@ translate_to_klingon() {
             fi
         fi
 
-        # translate word if exists in dictionary
         if [ "${klingon_dictionary[$word]+_}" ]; then
             klingon_sentence+=("${klingon_dictionary[$word]}")
         else
@@ -146,20 +124,11 @@ translate_to_klingon() {
         fi
     done
 
-    # implement basic Object-Verb-Subject (OVS) word order
-    # this is a naive implementation and works for simple sentences
-    # example: "I attack enemy" -> "enemy attack I"
-
-    # identify positions of subject, verb, object
-    # for simplicity, assume sentences are in "Subject Verb Object" format
-    # and reorder them to "Object Verb Subject"
-
     local subject=""
     local verb=""
     local object=""
     local reordered_sentence=()
 
-    # find subject (pronouns or known subjects)
     for idx in "${!klingon_sentence[@]}"; do
         local w="${klingon_sentence[$idx]}"
         if [[ "$w" == "jIH" || "$w" == "SoH" || "$w" == "maH" || "$w" == "naDev" || "$w" == "ghaH" ]]; then
@@ -167,7 +136,6 @@ translate_to_klingon() {
         fi
     done
 
-    # find verb (from a set of known verbs)
     declare -A verbs
     verbs=( ["batlh"]=1 ["bang"]=1 ["QInvam"]=1 ["vItlhutlh"]=1 ["tlhIngan Hol"]=1 )
 
@@ -178,26 +146,21 @@ translate_to_klingon() {
         fi
     done
 
-    # find object (remaining words)
     for w in "${klingon_sentence[@]}"; do
         if [[ "$w" != "$subject" && "$w" != "$verb" ]]; then
             object="$w"
         fi
     done
 
-    # reorder to Object Verb Subject
     if [[ -n "$object" && -n "$verb" && -n "$subject" ]]; then
         reordered_sentence=("$object" "$verb" "$subject")
     else
-        # if cannot determine, keep original order
         reordered_sentence=("${klingon_sentence[@]}")
     fi
 
-    # join the reordered sentence into a single string
     echo "${reordered_sentence[@]}"
 }
 
-# function to convert translated Klingon words to pIqaD glyphs
 convert_to_piqaD() {
     local translated_text="$1"
     local output_text=""
@@ -205,7 +168,6 @@ convert_to_piqaD() {
     local length=${#translated_text}
 
     while [ $i -lt $length ]; do
-        # handle multicharacter symbols
         if [ "${translated_text:$i:3}" == "tlh" ]; then
             output_text+="${klingon_map["tlh"]}"
             i=$((i+3))
@@ -219,7 +181,7 @@ convert_to_piqaD() {
             output_text+="${klingon_map["ng"]}"
             i=$((i+2))
         elif [ "${translated_text:$i:3}" == "pu'" ]; then
-            output_text+="${klingon_map["'"]}" # represent plural marker as apostrophe
+            output_text+="${klingon_map["'"]}"
             i=$((i+3))
         elif [ "${translated_text:$i:1}" == "'" ]; then
             output_text+="${klingon_map["'"]}"
@@ -229,7 +191,6 @@ convert_to_piqaD() {
             if [ "${klingon_map[$char]+_}" ]; then
                 output_text+="${klingon_map[$char]}"
             else
-                # for characters not in the mapping, add them as is
                 output_text+="$char"
             fi
             i=$((i+1))
@@ -239,34 +200,24 @@ convert_to_piqaD() {
     echo -e "$output_text"
 }
 
-# main Loop
 while true; do
-    # Read user input
     echo -e "${YELLOW}Enter text (or type 'exit' to quit):${NC} "
     read -p "" input_text
 
-    # exit if user types 'exit' or an empty line
     if [ -z "$input_text" ] || [ "$input_text" == "exit" ]; then
         echo -e "${GREEN}Qapla'! (Success!)${NC}"
         break
     fi
 
-    # convert input text to lower case
     input_text=$(echo "$input_text" | tr '[:upper:]' '[:lower:]')
 
-    # split input into words
     IFS=' ' read -r -a words <<< "$input_text"
 
-    # translate words to Klingon
     translated_sentence=$(translate_to_klingon "${words[@]}")
 
-    # convert translated sentence to pIqaD glyphs
     piqad_text=$(convert_to_piqaD "$translated_sentence")
 
-    # output the converted text
-    #echo -e "${BLUE}English:${NC} $input_text"
-    #echo -e "${MAGENTA}Klingon:${NC} $translated_sentence"
     echo -e "${CYAN}pIqaD:${NC}"
     echo -e "    $piqad_text"
-    echo "" # add an empty line for better readability
+    echo ""
 done
