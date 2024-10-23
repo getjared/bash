@@ -3,24 +3,19 @@
 
 grab a random wallpaper from wallhaven & set it..
 
-
 § prerequisites
-
 • jq
 • curl
 • feh
 
 sudo pacman -S jq curl
 
-
 § installation
-
 git clone https://github.com/getjared/bash.git
 cd bash/wc
 chmod +x wc.sh
 
 § usage
-
 • ./wc
 • -b (set random wallpaper)
 • -nsfw (allow nsfw)
