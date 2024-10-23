@@ -3,7 +3,6 @@
                               sauron.sh
                            <pure bash irc>
 
-
 sauron is a super minimal irc client written in bash without external dependencies. it's named after the all-seeing eye from the lord of the rings.
 
 features
@@ -14,22 +13,16 @@ features
 • no external dependencies - runs with just bash
 • customizable server, port, nickname, username, and channel
 
-
 § requirements
-
 • bash shell (version 4.0 or higher recommended)
 • a working internet connection
 
-
 § installation
-
 git clone https://github.com/getjared/bash.git
 cd bash/sauron
 chmod +x sauron.sh
 
-
 § usage
-
 run the script with optional parameters:
 
 ./sauron.sh [-s server] [-p port] [-n nickname] [-u username] [-r realname] [-c channel]
@@ -37,9 +30,7 @@ run the script with optional parameters:
 if no parameters are provided, default values will be used.
 best way to actually use it is to add an alias to your .bashrc
 
-
 § command-line options
-
 • `-s`: irc server (default: irc.libera.chat)
 • `-p`: irc port (default: 6667)
 • `-n`: nickname (default: sauronBot)
@@ -47,16 +38,12 @@ best way to actually use it is to add an alias to your .bashrc
 • `-r`: real name (default: Bash IRC Client)
 • `-c`: channel to join (default: #bash)
 
-
 § in-client commands
-
 • `/quit`: exit the client
 • `/join #channel`: join a new channel
 • `/msg user message`: send a private message to a user
 
-
 § example
-
 connect to a specific server and channel:
 make sure you add the "" around the channel name.
 
@@ -64,7 +51,5 @@ make sure you add the "" around the channel name.
 
 bash sauron.sh -s irc.libera.chat -p 6667 -n getjared -c "#bash"
 
-
 § note
-
 this is a minimal irc client intended for basic usage and learning purposes. it may not support all irc features or have robust error handling. use at your own discretion, and remember the only real security you need to worry about is the patch for human stupidity.
