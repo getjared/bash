@@ -1,0 +1,43 @@
+
+                               termjutsu.sh
+                        <terminal ninja techniques>
+
+
+§ installation
+git clone https://github.com/getjared/termjutsu.git
+cd termjutsu
+chmod +x termjutsu.sh
+./termjutsu.sh
+
+§ dependencies
+• bash shell
+• unicode/emoji support in your terminal
+• basic unix utilities
+• terminal with color support
+• • • sudo pacman -S noto-fonts noto-fonts-cjk noto-fonts-emoji
+
+§ quick-start
+commands:
+list                    : show all available jutsu
+exit                    : quit the program
+[jutsu name]            : perform the specified jutsu
+
+configuration:
+termjutsu is designed to be simple and extensible. new jutsu can be added by modifying the arrays in the source code:
+    JUTSU_PATTERNS - for emoji patterns
+    JUTSU_JAPANESE - for japanese names
+
+running termjutsu:
+    ./termjutsu.sh
+or add to your path:
+    sudo cp termjutsu.sh /usr/local/bin/termjutsu
+    termjutsu
+
+example jutsus:
+• rasengan (らせんがん) - spiral sphere technique
+• chidori (千鳥) - lightning blade
+• fireball (火遁・豪火球の術) - great fireball technique
+• and many more!
+
+all patterns support unicode emoji and multi-line animations for complex jutsu visualizations.
+feel free to add more or do whatever you like to it..
