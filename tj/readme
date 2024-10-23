@@ -39,5 +39,14 @@ example jutsus:
 • fireball (火遁・豪火球の術) - great fireball technique
 • and many more!
 
+example output >>
+
+Performing gale jutsu...
+Fūton: Daitoppa (風遁・大突破)
+手 (Preparing hand signs)...
+🙏🏼🚬💨🫦🔥
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
 all patterns support unicode emoji and multi-line animations for complex jutsu visualizations.
 feel free to add more or do whatever you like to it..
