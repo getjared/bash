@@ -2,7 +2,6 @@
                                termjutsu.sh
                         <terminal ninja techniques>
 
-
 § installation
 git clone https://github.com/getjared/termjutsu.git
 cd termjutsu
